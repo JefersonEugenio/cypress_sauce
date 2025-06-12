@@ -25,11 +25,8 @@ jobs:
             libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 \
             libxtst6 xauth xvfb
 
-      - name: Instalar dependências com retry
-        run: |
-          for i in 1 2 3; do
-            npm ci && break || sleep 10
-          done
+      - name: Instalar dependências do projeto
+        run: npm ci
       
       - name: Run Tests
         run: npx cypress open
