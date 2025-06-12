@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,11 +25,8 @@ jobs:
             libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 \
             libxtst6 xauth xvfb
 
-      - name: Install Cypress
-        run: npm install cypress
+      - name: Instalar dependências do projeto
+        run: npm ci
       
       - name: Run Tests
         run: npx cypress open
-
-      - name: Install Cypress-cucumber-preprocessor
-        run: npm install cypress-cucumber-preprocessor
