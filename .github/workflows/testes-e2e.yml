@@ -17,6 +17,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          
+      - name: Instalar dependências do sistema para Cypress
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev \
+            libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 \
+            libxtst6 xauth xvfb
 
       - name: Install Cypress
         run: npm install cypress
