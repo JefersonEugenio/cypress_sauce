@@ -1,0 +1,14 @@
+# Ignora node_modules (Node.js)
+node_modules/
+
+# Ignora cache e artefatos do Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Ignora configurações locais do Cypress (opcional)
+cypress/.cache/
+cypress/.output/
+
+# Ignora relatórios de testes, se estiver usando mochawesome ou similares
+mochawesome-report/
