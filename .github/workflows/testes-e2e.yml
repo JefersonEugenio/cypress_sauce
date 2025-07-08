@@ -9,8 +9,8 @@ jobs:
       - name: Criar cypress.env.json
         run: |
           echo '{
-            "user_name": "${{ secrets.CYPRESS_USER_NAME }}",
-            "user_password": "${{ secrets.CYPRESS_USER_PASSWORD }}"
+            "user_name": "${{ secrets.CYPRESS_user_name }}",
+            "user_password": "${{ secrets.CYPRESS_user_password }}"
           }' > cypress.env.json
       - name: Cypress run
         uses: cypress-io/github-action@v6
