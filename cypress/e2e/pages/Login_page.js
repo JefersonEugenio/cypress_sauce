@@ -12,8 +12,8 @@ class LoginPage {
     }
 
     fillLogin(user, pass) {
-        cy.get(loginElement.usernameInput()).type(user)
-        cy.get(loginElement.passwordInput()).type(pass)
+        cy.get(loginElement.usernameInput()).should('be.visible').type(user).should('have.value', user)
+        cy.get(loginElement.passwordInput()).should('be.visible').type(pass)
     }
     
     clickButton() {
