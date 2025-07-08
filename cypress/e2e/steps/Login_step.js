@@ -32,20 +32,3 @@ When(/^clicar no botao entrar$/, () => {
 Then(/^tenho meu acesso "([^"]*)"$/, (mensagem) => {
   loginPage.validar(mensagem)
 });
-
-
-// Given(/^eu acesse a pagina home da aplicacao$/, () => {
-//     loginPage.acessarNavegador()
-// });
-
-// When(/^eu inserir meu email "([^"]*)" e minha senha "([^"]*)"$/, (user,pass) => {
-//     loginPage.fillLogin(user, pass)
-// });
-
-// When(/^clicar no botao entrar$/, () => {
-//     loginPage.clickButton()
-// });
-
-// Then(/^tenho meu acesso "([^"]*)"$/, (mensagem) => {
-//     loginPage.validar(mensagem)
-// });
