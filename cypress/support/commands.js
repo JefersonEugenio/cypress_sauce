@@ -1,4 +1,4 @@
-import LoginPage from "c:/Users/jeferson.lopes/Desktop/VSC/SauceCypress/cypress/e2e/pages/Login_page"
+import LoginPage from "../e2e/pages/Login_page"
 
 const loginPage = new LoginPage()
 
