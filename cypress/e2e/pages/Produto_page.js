@@ -21,4 +21,9 @@ class ProdutoPage {
             .click()
     }
 
+    validarProdutos() {
+        cy.get(produtoElement.produtos())
+            .should('be.visible')
+    }
+
 } export default ProdutoPage
