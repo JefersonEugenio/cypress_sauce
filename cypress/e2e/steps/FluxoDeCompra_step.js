@@ -2,9 +2,11 @@
 
 import ProdutoPage from "../pages/Produto_page"
 import CarrinhoPage from "../pages/Carrinho_page"
+import CheckoutPage from "../pages/Checkout_page"
 
 const produtoPage = new ProdutoPage
 const carrinhoPage = new CarrinhoPage
+const checkoutPage = new CheckoutPage
 
 before(() => {
   cy.clearCookies()
@@ -28,6 +30,8 @@ When(/^adiciono um produto "([^"]*)" ao carrinho e acesso o carrinho$/, (item) =
 
 When(/^inicio o processo de checkout e preencho as informações do comprador$/, () => {
 	carrinhoPage.checkout()
+	checkoutPage.preencherDados()
+	checkoutPage.continue()
 });
 
 Then(/^finalizo a compra com sucesso$/, () => {
