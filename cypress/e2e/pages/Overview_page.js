@@ -12,4 +12,15 @@ class OverviewPage {
             .click()
     }
 
+    messageTitle(mensagem) {
+        cy.get(overviewElement.textMessage())
+            .should('have.text', mensagem)
+    }
+
+    backHome() {
+        cy.get(overviewElement.backHome())
+            .should('be.visible')
+            .click()
+    }
+
 } export default OverviewPage

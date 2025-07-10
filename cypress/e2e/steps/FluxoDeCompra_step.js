@@ -36,6 +36,10 @@ When(/^inicio o processo de checkout e preencho as informações do comprador$/,
 	checkoutPage.continue()
 });
 
-Then(/^finalizo a compra com sucesso$/, () => {
+
+Then(/^finalizo a compra com sucesso e mensagem "([^"]*)"$/, (mensagem) => {
 	overviewPage.overviewFinish()
+	overviewPage.messageTitle(mensagem)
+	overviewPage.backHome()
+	produtoPage.validarProdutos()
 });
