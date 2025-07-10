@@ -3,10 +3,12 @@
 import ProdutoPage from "../pages/Produto_page"
 import CarrinhoPage from "../pages/Carrinho_page"
 import CheckoutPage from "../pages/Checkout_page"
+import OverviewPage from "../pages/Overview_page"
 
 const produtoPage = new ProdutoPage
 const carrinhoPage = new CarrinhoPage
 const checkoutPage = new CheckoutPage
+const overviewPage = new OverviewPage
 
 before(() => {
   cy.clearCookies()
@@ -35,5 +37,5 @@ When(/^inicio o processo de checkout e preencho as informações do comprador$/,
 });
 
 Then(/^finalizo a compra com sucesso$/, () => {
-	return true;
+	overviewPage.overviewFinish()
 });
