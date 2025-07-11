@@ -16,6 +16,9 @@ class ProdutoPage {
     }
 
     acessarCarrinho() {
+        cy.get(produtoElement.quantidadeCarrinho())
+            .should('have.text', 1)
+
         cy.get(produtoElement.carrinho())
             .should('be.visible')
             .click()
