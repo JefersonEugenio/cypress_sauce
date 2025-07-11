@@ -35,6 +35,25 @@ Antes de começar, certifique-se de que os seguintes sistemas estejam instalados
 >
 > **Obs. 4:** Deixei links para os instaladores na lista de requisitos acima, caso você ainda não os tenha instalados.
 
+## 🚀 Como executar
+
+### Passo a passo
+
+#### 🔧 Opções para executar os testes:
+
+1. **Clone o repositório:**
+```bash
+git clone https://github.com/JefersonEugenio/cypress_sauce.git
+cd SauceCypress
+Executar via terminal: "npm run cypress:run" ou "npm run cypress:open"
+```
+
+O comando ``npm run cypress:run`` é padrão para executar o fluxo de testes, mas é possível especificar uma classe de teste específica.
+| Nome de classe | Comando | Descrição |
+| :------- | :---- | :---------- |
+| Cypress (headless) | ``npm run cypress:run`` | Executa todos os testes automaticamente no terminal (modo headless) |
+| Cypress (GUI) | ``npm run cypress:open`` | Abre o Cypress no modo interativo com interface gráfica para depuração |
+
 ## 👨‍💻 Autor
 | [<img src="https://avatars.githubusercontent.com/u/122066021?v=4" width=115><br><sub>Jeferson Lopes Eugenio</sub>](https://github.com/JefersonEuenio) |
 | :---: |
