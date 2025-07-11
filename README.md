@@ -44,7 +44,7 @@ Antes de começar, certifique-se de que os seguintes sistemas estejam instalados
 1. **Clone o repositório:**
 ```bash
 git clone https://github.com/JefersonEugenio/cypress_sauce.git
-cd SauceCypress
+cd cypress_sauce
 Executar via terminal: "npm run cypress:run" ou "npm run cypress:open"
 ```
 
