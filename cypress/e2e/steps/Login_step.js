@@ -68,3 +68,12 @@ When(/^eu inserir "([^"]*)" caracteres aleatorio no campo username$/, (numero) =
 Then(/^exibida mensagem de erro indicando o limite de caracteres$/, () => {
 	return true;
 });
+
+Given(/^que acesso a tela de login, preencho os dados e clico no botão Login$/, () => {
+  const user = Cypress.env('user_name')
+  const password = Cypress.env('user_password')
+  
+	loginPage.acessarNavegador()
+  loginPage.fillLogin(user, password)
+  loginPage.clickButton()
+});
