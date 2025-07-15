@@ -43,7 +43,9 @@ class LoginPage {
     }
     
     clickButton() {
-        cy.get(loginElement.loginButton()).click()
+        cy.get(loginElement.loginButton())
+            .should('be.visible') 
+            .click()
     }
 
     validar(mensagem) {
