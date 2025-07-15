@@ -26,6 +26,7 @@ Given(/^que estou na página inicial da aplicação e estou autenticado com emai
 When(/^adiciono um produto "([^"]*)" ao carrinho e acesso o carrinho$/, (item) => {
 	produtoPage.validarProdutos()
 	produtoPage.adicionarProduto(item)
+	produtoPage.iconeCarrinho()
 	produtoPage.acessarCarrinho()
 });
 
