@@ -45,9 +45,31 @@ Antes de começar, certifique-se de que os seguintes sistemas estejam instalados
 ```bash
 git clone https://github.com/JefersonEugenio/cypress_sauce.git
 cd cypress_sauce
-Executar via terminal: "npm run cypress:run" ou "npm run cypress:open"
 ```
 
+2. **Instale as dependências:**
+```bash 
+npm install 
+```
+3. **Configure o arquivo de ambiente (cypress.env.json):**
+O projeto usa variáveis sensíveis (como login e senha) no arquivo cypress.env.json, que não é enviado para o GitHub por segurança.
+
+Você precisa criar esse arquivo manualmente antes de executar os testes:
+
+1.Copie o arquivo de exemplo:
+``` cp cypress.env.example.json cypress.env.json ```
+Ou crie um novo arquivo ''cypress.env.json'' na raiz do projeto.
+
+2.Preencha com seus dados reais, seguindo o modelo:
+
+```bash
+{
+  "user": "SEU_USUARIO",
+  "password": "SUA_SENHA"
+} 
+```
+
+### Comandos para executar os testes:
 O comando ``npm run cypress:run`` é padrão para executar o fluxo de testes, mas é possível especificar uma classe de teste específica.
 | Nome de classe | Comando | Descrição |
 | :------- | :---- | :---------- |
