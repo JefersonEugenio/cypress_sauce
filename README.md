@@ -64,8 +64,8 @@ Ou crie um novo arquivo ''cypress.env.json'' na raiz do projeto.
 
 ```bash
 {
-  "user": "SEU_USUARIO",
-  "password": "SUA_SENHA"
+  "user_name": "SEU_USUARIO",
+  "user_password": "SUA_SENHA"
 } 
 ```
 
