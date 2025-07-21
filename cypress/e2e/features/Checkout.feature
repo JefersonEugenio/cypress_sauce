@@ -13,6 +13,6 @@ Feature: A pagina do checkout
 
         Examples:
         |cenario|FirstName|LastName|Postal|mensagem|
-        |Preenchimento completo e valido dos campos obrigatorios|jeferson|lopes|1590909|Overview|
+        |Preenchimento completo e valido dos campos obrigatorios|faker|faker|faker|Overview|
         |Campos obrigatorio em branco| | | |First Name is required|
         
