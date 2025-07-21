@@ -11,7 +11,7 @@ Feature: Acessar login
         When eu inserir meu email invalido e senha valido
         And clicar no botao entrar
         Then exibida mensagem de erro "Username and password do not match any user in this service"
-    
+
     Scenario: Login com senha incorreta
         Given eu acesse a pagina home da aplicacao
         When eu inserir meu email e senha incorreta
