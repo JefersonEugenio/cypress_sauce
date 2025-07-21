@@ -15,4 +15,4 @@ Feature: A pagina do checkout
         |cenario|FirstName|LastName|Postal|mensagem|
         |Preenchimento completo e valido dos campos obrigatorios|jeferson|lopes|1590909|Overview|
         |Campos obrigatorio em branco| | | |First Name is required|
-        |Insercao de caracteres invalidos nos campos de texto|@123|#$$%|abcde|First Name is required|
+        
