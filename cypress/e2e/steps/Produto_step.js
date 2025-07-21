@@ -42,3 +42,11 @@ When(/^visualizar existe menu de ordenacao$/, () => {
 Then(/^seleciona a opcao "([^"]*)"$/, (value) => {
 	produtoPage.selecionarMenuOrdenacao(value)
 });
+
+When(/^visualizar a pagina de produto e adicionar produto "([^"]*)"$/, (item) => {
+  produtoPage.titleProduto()
+  produtoPage.validarProdutos()
+  produtoPage.adicionarProduto(item)
+  produtoPage.iconeCarrinho()
+  produtoPage.acessarCarrinho()
+});

@@ -30,9 +30,9 @@ When(/^adiciono um produto "([^"]*)" ao carrinho e acesso o carrinho$/, (item) =
 	produtoPage.acessarCarrinho()
 });
 
-When(/^inicio o processo de checkout e preencho as informações do comprador$/, () => {
+When(/^inicio o processo de checkout e preencho as informações do comprador nome "([^"]*)", sobrenome "([^"]*)" e postal "([^"]*)"$/, (nome,sobrenome,postal) => {
 	carrinhoPage.checkout()
-	checkoutPage.preencherDados()
+	checkoutPage.preencherDados(nome, sobrenome, postal)
 	checkoutPage.continue()
 });
 
