@@ -5,5 +5,8 @@ class CheckoutElement {
     zipPostal = () => { return '#postal-code'}
 
     continueButton = () => { return '#continue'}
+    cancelButton = () => { return '#cancel'}
+
+    error = () => { return '[data-test="error"]'}
 
 } export default CheckoutElement
