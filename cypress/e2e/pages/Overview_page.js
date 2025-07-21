@@ -13,7 +13,7 @@ class OverviewPage {
     }
 
     messageTitle(mensagem) {
-        cy.get(overviewElement.textMessage())
+        cy.get(overviewElement.message())
             .should('have.text', mensagem)
     }
 
