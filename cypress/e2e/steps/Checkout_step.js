@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 import { faker } from '@faker-js/faker'
 import CheckoutPage from "../pages/Checkout_page";
+import OverviewElement from '../elements/Overview_element';
 
 const checkoutPage = new CheckoutPage
+const overviewElement = new OverviewElement
 
 When(/^eu inserir primeiro nome "([^"]*)", sobrenome "([^"]*)" e CEP "([^"]*)"$/, (nome,sobrenome,postal) => {
 	const primeiroNome = nome === 'faker' ? faker.person.firstName() : nome;
@@ -17,9 +19,16 @@ Then(/^clicar no botao Continue$/, () => {
 });
 
 Then(/^sistema redireciona ou mensagem "([^"]*)"$/, (mensagem) => {
-	if (mensagem === 'Overview') {
-		checkoutPage.title(mensagem)
-	} else {
-		checkoutPage.error(mensagem)
-	}
+	cy.get(overviewElement.title()).then(($titulo) => {
+		const tituloVisivel = $titulo.text().trim();
+		if (tituloVisivel.includes(mensagem)) {
+			expect(tituloVisivel).to.include(mensagem);
+		} else {
+			checkoutPage.error(mensagem)
+		}
+	})
+});
+
+When(/^clicar no botao Cancel$/, () => {
+	checkoutPage.cancel()
 });

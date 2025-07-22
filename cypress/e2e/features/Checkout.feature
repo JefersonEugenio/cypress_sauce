@@ -15,4 +15,11 @@ Feature: A pagina do checkout
         |cenario|FirstName|LastName|Postal|mensagem|
         |Preenchimento completo e valido dos campos obrigatorios|faker|faker|faker|Overview|
         |Campos obrigatorio em branco| | | |First Name is required|
+        |Campo 'First Name' em branco| |faker|faker|First Name is required|
+        |Campo 'Last Name' em branco|faker| |faker|Last Name is required|
+        |Campo 'Zip/Postal' em branco|faker|faker| |Postal Code is required|
+
+    Scenario: Clicar em 'Cancel' para retornar ao carrinho
+        When clicar no botao Cancel
+        Then sistema redireciona ou mensagem "Your Cart"
         
