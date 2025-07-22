@@ -11,6 +11,16 @@ class ProdutoPage {
             .contains(item)
             .should('be.visible')
             .parents('.inventory_item')
+            .as('produtoItem')
+
+        cy.get('@produtoItem')
+            .find('.inventory_item_price')
+            .invoke('text')
+            .then(texto => {
+                cy.wrap(texto.trim()).as('guardado')
+            })
+        
+        cy.get('@produtoItem')
             .find('button')
             .click()
     }
