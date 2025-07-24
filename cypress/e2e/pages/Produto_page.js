@@ -6,6 +6,15 @@ const produtoElement = new ProdutoElement
 
 class ProdutoPage {
 
+    acessarProduto(item) {
+        cy.get(produtoElement.produtos())
+            .contains(item)
+            .should('be.visible')
+            .parents('.inventory_item')
+            .find('.inventory_item_name')
+            .click()
+    }
+
     adicionarProduto(item) {
         cy.get(produtoElement.produtos())
             .contains(item)
