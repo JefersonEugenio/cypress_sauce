@@ -11,5 +11,7 @@ cypress.env.json
 cypress/.cache/
 cypress/.output/
 
-# Ignora relatórios de testes, se estiver usando mochawesome ou similares
-mochawesome-report/
+# Ignora relatórios de testes
+*allure/
+allure-report
+allure-results
