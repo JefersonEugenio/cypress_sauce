@@ -76,6 +76,14 @@ O comando ``npm run cypress:run`` é padrão para executar o fluxo de testes, ma
 | Cypress (headless) | ``npm run cypress:run`` | Executa todos os testes automaticamente no terminal (modo headless) |
 | Cypress (GUI) | ``npm run cypress:open`` | Abre o Cypress no modo interativo com interface gráfica para depuração |
 
+
+### Comandos para gerar o relatório Allure:
+Após a execução dos testes, você pode gerar e abrir um relatório com os seguintes comandos:
+| Nome | Comando | Descrição |
+| :------- | :---- | :---------- |
+| Gerar relatório | ``npx allure generate allure-results -o allure-report`` | Gera o relatório Allure a partir dos resultados dos testes |
+| Abrir relatório | ``npx allure open allure-report`` | Abre o relatório Allure em uma interface gráfica no navegador |
+
 ## 👨‍💻 Autor
 | [<img src="https://avatars.githubusercontent.com/u/122066021?v=4" width=115><br><sub>Jeferson Lopes Eugenio</sub>](https://github.com/JefersonEuenio) |
 | :---: |
