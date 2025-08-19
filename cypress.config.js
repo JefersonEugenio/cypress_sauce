@@ -6,6 +6,7 @@ module.exports = defineConfig({
   e2e: {
     defaultCommandTimeout: 10000, 
     baseUrl: 'https://www.saucedemo.com/',
+    specPattern: '**/*.cy.js',
     setupNodeEvents(on, config) {
       allureWriter(on, config);
       return config;
