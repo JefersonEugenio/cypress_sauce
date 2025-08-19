@@ -39,5 +39,11 @@ class CarrinhoPage {
         .should('be.visible')
         .type(numero)
     }
+
+    continueShopping() {
+        cy.get(carrinhoElement.continueShopping())
+        .should('be.visible')
+        .click()
+    }
     
 } export default CarrinhoPage
