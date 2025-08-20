@@ -27,7 +27,7 @@ describe('A pagina do produto', () => {
         produtoPage.verificarIconeCarrinhoValor("")
     })
 
-    it.only('verificar ordenacao correta de produto pelo menu', () => {
+    it('verificar ordenacao correta de produto pelo menu', () => {
         produtoPage.verificarMenuOrdenacao()
         produtoPage.selecionarMenuOrdenacao('Name (Z to A)')
         produtoPage.selecionarMenuOrdenacao('Price (low to high)')

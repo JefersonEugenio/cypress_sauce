@@ -4,7 +4,7 @@ import CheckoutPage from "../pages/Checkout_page";
 
 const checkoutPage = new CheckoutPage
 
-describe('A pagina do carrinho', () => {
+describe('A pagina do overview', () => {
     
     beforeEach(() => {
         const title = 'Swag Labs'

@@ -1,4 +1,4 @@
-# Sauce Demo Cypress com Cucumber
+# Sauce Demo Cypress
 
 ## 📌 Descrição do projeto
 O objetivo deste projeto é criar uma automação completa de testes para o site [Sauce Demo](https://www.saucedemo.com/). O foco é identificar cenários de teste, implementá-los e configurar relatórios detalhados de execução, aplicando boas práticas de automação.
