@@ -1,29 +1,47 @@
 /// <reference types="cypress" />
 
+import { faker } from '@faker-js/faker'
 import CheckoutElement from "../elements/Checkout_element";
 import OverviewElement from "../elements/Overview_element";
 
 const checkoutElement = new CheckoutElement
 const overviewElement = new OverviewElement
 
+const primeiroNome = faker.person.firstName()
+
 class CheckoutPage {
 
-    preencherDados(nome, sobrenome, postal) {
-        if (nome) {
-            cy.get(checkoutElement.firstName())
-                .should('be.visible')
-                .type(nome)
-        }
-        if (sobrenome) {
-            cy.get(checkoutElement.lastName())
-                .should('be.visible')
-                .type(sobrenome)
-        }
-        if (postal) {
-            cy.get(checkoutElement.zipPostal())
-                .should('be.visible')
-                .type(postal)
-        }
+    preencherDados() {
+
+        cy.get(checkoutElement.firstName())
+            .should('be.visible')
+            .type(faker.person.firstName())
+
+        cy.get(checkoutElement.lastName())
+            .should('be.visible')
+            .type(faker.person.lastName())
+
+        cy.get(checkoutElement.zipPostal())
+            .should('be.visible')
+            .type(faker.location.zipCode('#######'))
+    }
+
+    preencherFirstName() {
+        cy.get(checkoutElement.firstName())
+            .should('be.visible')
+            .type(faker.person.firstName())
+    }
+
+    preencherLastName() {
+        cy.get(checkoutElement.lastName())
+            .should('be.visible')
+            .type(faker.person.lastName())
+    }
+
+    preencherPostal() {
+        cy.get(checkoutElement.zipPostal())
+            .should('be.visible')
+            .type(faker.location.zipCode('#######'))
     }
 
     continue() {
@@ -49,5 +67,5 @@ class CheckoutPage {
             .should('be.visible')
             .contains(mensagem)
     }
-    
+
 } export default CheckoutPage

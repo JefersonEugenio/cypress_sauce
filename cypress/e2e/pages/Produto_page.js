@@ -59,9 +59,10 @@ class ProdutoPage {
             .should('be.visible')
     }
 
-    titleProduto() {
+    titleProduto(mensagem) {
         cy.get(produtoElement.titleProduto())
             .should('be.visible')
+            .contains(mensagem)
     }
 
     verificarIconeCarrinhoValor(valor) {
