@@ -1,15 +1,22 @@
 /// <reference types="cypress" />
+
+import LoginPage from "../pages/Login_page";
 import ProdutoPage from "../pages/Produto_page";
 import CarrinhoPage from "../pages/Carrinho_page";
 
+const user = Cypress.env('user_name')
+const password = Cypress.env('user_password')
+
+const loginPage = new LoginPage
 const produtoPage = new ProdutoPage
 const carrinhoPage = new CarrinhoPage
 
 describe('A pagina do carrinho', () => {
 
     beforeEach(() => {
-        const title = 'Swag Labs'
-        cy.acessarLogin(title)
+        cy.visit(Cypress.config('baseUrl'))
+        loginPage.fillLogin(user, password)
+        loginPage.clickButton()
         produtoPage.titleProduto('Products')
         produtoPage.validarProdutos()
         produtoPage.adicionarProduto('Sauce Labs Backpack')

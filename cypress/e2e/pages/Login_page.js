@@ -32,16 +32,16 @@ class LoginPage {
             .type(password)
     }
 
-    fillLogin(user, pass) {
+    fillLogin(user, password) {
         cy.get(loginElement.usernameInput())
             .should('be.visible')
             .type(user)
             .should('have.value', user)
         cy.get(loginElement.passwordInput())
             .should('be.visible')
-            .type(pass)
+            .type(password)
     }
-    
+
     clickButton() {
         cy.get(loginElement.loginButton())
             .should('be.visible') 

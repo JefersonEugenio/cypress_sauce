@@ -1,14 +1,20 @@
 /// <reference types="cypress" />
 
+import LoginPage from '../pages/Login_page'
 import ProdutoPage from "../pages/Produto_page";
 
+const loginPage = new LoginPage
 const produtoPage = new ProdutoPage
+
+const user = Cypress.env('user_name')
+const password = Cypress.env('user_password')
 
 describe('A pagina do produto', () => {
 
     beforeEach(() => {
-        const title = 'Swag Labs'
-        cy.acessarLogin(title)
+        cy.visit(Cypress.config('baseUrl'))
+        loginPage.fillLogin(user, password)
+        loginPage.clickButton()
     })
 
     it('exibir lista de produtos após Login', () => {
@@ -20,7 +26,7 @@ describe('A pagina do produto', () => {
         produtoPage.adicionarProduto('Sauce Labs Backpack')
         produtoPage.verificarIconeCarrinhoValor(1)
     })
-    
+
     it('remover produto do carrinho', () => {
         produtoPage.adicionarProduto('Sauce Labs Backpack')
         produtoPage.removerProduto('Sauce Labs Backpack')

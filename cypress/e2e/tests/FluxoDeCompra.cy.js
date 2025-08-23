@@ -1,14 +1,17 @@
 /// <reference types="cypress" />
 
-describe('Fluxo de compra', () => {
-  const url = Cypress.config('baseUrl')
-  it('Compra com sucesso', () => {
-    const title = 'Swag Labs'
-    cy.acessarLogin(title)
-    cy.selecionadoProduto()
-    cy.preencherInformacao()
-    cy.finalizadoProduto()
+import Funcao from '../../support/funcao'
 
+const user = Cypress.env('user_name')
+const password = Cypress.env('user_password')
+
+describe('Fluxo de compra', () => {
+  it('Compra com sucesso', () => {
+    cy.visit(Cypress.config('baseUrl'))
+    Funcao.fazLogin(user, password)
+    Funcao.selecionadoProduto('Sauce Labs Backpack')
+    Funcao.preencherInformacao()
+    Funcao.finalizadoProduto()
   })
 
 })
