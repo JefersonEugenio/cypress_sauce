@@ -1,42 +1,70 @@
 /// <reference types="cypress" />
 
-import LoginPage from '../pages/Login_page'
 import ProdutoPage from "../pages/Produto_page";
 
-const loginPage = new LoginPage
 const produtoPage = new ProdutoPage
-
-const user = Cypress.env('user_name')
-const password = Cypress.env('user_password')
 
 describe('A pagina do produto', () => {
 
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'))
-        loginPage.fillLogin(user, password)
-        loginPage.clickButton()
+        cy.sessionLogin()
+        cy.userLogin(Cypress.env('user_name'))
     })
 
     it('exibir lista de produtos após Login', () => {
-        produtoPage.titleProduto('Products')
-        produtoPage.validarProdutos()
+        cy.get('.title').should('have.text', 'Products')
+        cy.get('.inventory_item_name').should('be.visible')
     })
 
     it('adicionar produto ao carrinho', () => {
-        produtoPage.adicionarProduto('Sauce Labs Backpack')
-        produtoPage.verificarIconeCarrinhoValor(1)
+        cy.get('.inventory_item_name')
+            .contains('Sauce Labs Backpack')
+            .should('be.visible')
+            .parents('.inventory_item')
+            .as('produtoItem')
+        cy.get('@produtoItem')
+            .find('.inventory_item_price')
+            .invoke('text')
+            .then(texto => {
+                cy.wrap(texto.trim()).as('guardado')
+            })
+
+        cy.get('@produtoItem')
+            .find('button')
+            .click()
+
+        cy.get('.shopping_cart_badge').should('be.visible').and('have.text', 1)
+        cy.get('.shopping_cart_link').click()
     })
 
     it('remover produto do carrinho', () => {
-        produtoPage.adicionarProduto('Sauce Labs Backpack')
-        produtoPage.removerProduto('Sauce Labs Backpack')
-        produtoPage.verificarIconeCarrinhoValor("")
+        cy.get('.inventory_item_name')
+            .contains('Sauce Labs Backpack')
+            .should('be.visible')
+            .parents('.inventory_item')
+            .as('produtoItem')
+        cy.get('@produtoItem')
+            .find('.inventory_item_price')
+            .invoke('text')
+            .then(texto => {
+                cy.wrap(texto.trim()).as('guardado')
+            })
+
+        cy.get('@produtoItem')
+            .find('button')
+            .click()
+
+        cy.get('@produtoItem')
+            .find('button')
+            .click()
+
+        cy.get('.shopping_cart_badge').should('not.exist')
     })
 
-    it('verificar ordenacao correta de produto pelo menu', () => {
-        produtoPage.verificarMenuOrdenacao()
-        produtoPage.selecionarMenuOrdenacao('Name (Z to A)')
-        produtoPage.selecionarMenuOrdenacao('Price (low to high)')
-        produtoPage.selecionarMenuOrdenacao('Price (high to low)')
+    it.only('verificar ordenacao correta de produto pelo menu', () => {
+        cy.get('.product_sort_container').should('be.visible')
+        cy.get('.product_sort_container').should('be.visible').select('Name (Z to A)')
+        cy.get('.product_sort_container').should('be.visible').select('Price (low to high)')
+        cy.get('.product_sort_container').should('be.visible').select('Price (high to low)')
     })
 })
