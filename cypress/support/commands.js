@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 Cypress.Commands.add('sessionLogin', () => {
     cy.visit('/')
     cy.get('#password').type(Cypress.env('user_password'))
@@ -31,4 +33,14 @@ Cypress.Commands.add('adicionarProduto', (product) => {
 
 Cypress.Commands.add('carrinhoProduto', (product) => {
     cy.contains('.btn', 'Checkout').should('be.visible').click()
+})
+
+Cypress.Commands.add('checkout', (product) => {
+    cy.get('#first-name').should('be.visible')
+            .type(faker.person.firstName())
+        cy.get('#last-name').should('be.visible')
+            .type(faker.person.lastName())
+        cy.get('#postal-code').should('be.visible')
+            .type(faker.location.zipCode('#######'))
+        cy.get('#continue').should('be.visible').click()
 })
