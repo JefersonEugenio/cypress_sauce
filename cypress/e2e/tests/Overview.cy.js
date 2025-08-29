@@ -10,7 +10,7 @@ describe('A pagina do overview', () => {
         cy.checkout()
     })
 
-    it.only('Finalizar compra com produto no carrinho', () => {
+    it('Finalizar compra com produto no carrinho', () => {
         cy.get('.inventory_item_name').should('be.visible')
         cy.get('@guardado').then((textoGuardado) => {
         cy.get('.summary_subtotal_label')
