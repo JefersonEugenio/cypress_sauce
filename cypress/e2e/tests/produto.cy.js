@@ -1,9 +1,5 @@
 /// <reference types="cypress" />
 
-import ProdutoPage from "../pages/Produto_page";
-
-const produtoPage = new ProdutoPage
-
 describe('A pagina do produto', () => {
 
     beforeEach(() => {
