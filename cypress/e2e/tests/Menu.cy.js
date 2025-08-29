@@ -1,46 +1,55 @@
 /// <reference types="cypress" />
 
-import LoginPage from '../pages/Login_page'
-import MenuPage from "../pages/Menu_page";
-import ProdutoPage from "../pages/Produto_page";
-
-const loginPage = new LoginPage
-const menuPage = new MenuPage
-const produtoPage = new ProdutoPage
-
-const user = Cypress.env('user_name')
-const password = Cypress.env('user_password')
-
 describe('Acessar cada opção do menu funciona corretamente', () => { 
 
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'))
-        loginPage.fillLogin(user, password)
-        loginPage.clickButton()
+        cy.sessionLogin()
+        cy.userLogin(Cypress.env('user_name'))
     })
 
     it('Navegar para tela principal pelo menu', () => {
-        produtoPage.acessarProduto('Sauce Labs Backpack')
-        menuPage.clicarMenu()
-        menuPage.clicarAllItems()
+        cy.get('.inventory_item_name')
+            .contains('Sauce Labs Backpack')
+            .should('be.visible')
+            .parents('.inventory_item')
+            .find('.inventory_item_name')
+            .click()
+        cy.get('#react-burger-menu-btn').should('be.visible').click()
+        cy.get('#inventory_sidebar_link').should('be.visible').click()
     })
 
     it('Acessar site Sauce Labs pelo menu', () => {
-        produtoPage.acessarProduto('Sauce Labs Backpack')
-        menuPage.clicarMenu()
-        menuPage.clicarAbout()
+        cy.get('.inventory_item_name')
+            .contains('Sauce Labs Backpack')
+            .should('be.visible')
+            .parents('.inventory_item')
+            .find('.inventory_item_name')
+            .click()
+        cy.get('#react-burger-menu-btn').should('be.visible').click()
+        cy.get('#about_sidebar_link').should('be.visible')
+            .and('have.attr', 'href', 'https://saucelabs.com/')
     })
 
     it('Logout pelo menu', () => {
-        produtoPage.acessarProduto('Sauce Labs Backpack')
-        menuPage.clicarMenu()
-        menuPage.clicarLogout()
+        cy.get('.inventory_item_name')
+            .contains('Sauce Labs Backpack')
+            .should('be.visible')
+            .parents('.inventory_item')
+            .find('.inventory_item_name')
+            .click()
+        cy.get('#react-burger-menu-btn').should('be.visible').click()
+        cy.get('#logout_sidebar_link').should('be.visible').click()
     })
 
     it('Fechar menu lateral pelo botao "X"', () => {
-        produtoPage.acessarProduto('Sauce Labs Backpack')
-        menuPage.clicarMenu()
-        menuPage.clicarClose()
+        cy.get('.inventory_item_name')
+            .contains('Sauce Labs Backpack')
+            .should('be.visible')
+            .parents('.inventory_item')
+            .find('.inventory_item_name')
+            .click()
+        cy.get('#react-burger-menu-btn').should('be.visible').click()
+        cy.get('#react-burger-cross-btn').should('be.visible').click()
     })
 
 })
