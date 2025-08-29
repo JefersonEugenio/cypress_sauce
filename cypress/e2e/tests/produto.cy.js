@@ -57,7 +57,7 @@ describe('A pagina do produto', () => {
         cy.get('.shopping_cart_badge').should('not.exist')
     })
 
-    it.only('verificar ordenacao correta de produto pelo menu', () => {
+    it('verificar ordenacao correta de produto pelo menu', () => {
         cy.get('.product_sort_container').should('be.visible')
         cy.get('.product_sort_container').should('be.visible').select('Name (Z to A)')
         cy.get('.product_sort_container').should('be.visible').select('Price (low to high)')
