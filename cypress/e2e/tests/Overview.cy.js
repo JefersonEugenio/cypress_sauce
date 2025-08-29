@@ -1,42 +1,44 @@
 /// <reference types="cypress" />
 
-import LoginPage from "../pages/Login_page";
-import ProdutoPage from "../pages/Produto_page";
-import CarrinhoPage from "../pages/Carrinho_page";
-import CheckoutPage from "../pages/Checkout_page";
-import OverviewPage from "../pages/Overview_page";
-
-const user = Cypress.env('user_name')
-const password = Cypress.env('user_password')
-
-const loginPage = new LoginPage
-const produtoPage = new ProdutoPage
-const carrinhoPage = new CarrinhoPage
-const checkoutPage = new CheckoutPage
-const overviewPage = new OverviewPage
-
 describe('A pagina do overview', () => { 
 
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'))
-        loginPage.fillLogin(user, password)
-        loginPage.clickButton()
-        produtoPage.titleProduto('Products')
-        produtoPage.validarProdutos()
-        produtoPage.adicionarProduto('Sauce Labs Backpack')
-        produtoPage.verificarIconeCarrinhoValor(1)
-        produtoPage.acessarCarrinho()
-        carrinhoPage.checkout()
-        checkoutPage.preencherDados()
-        checkoutPage.continue()
+        cy.sessionLogin()
+        cy.userLogin(Cypress.env('user_name'))
+        cy.adicionarProduto('Sauce Labs Backpack')
+        cy.carrinhoProduto()
+        cy.checkout()
     })
 
-    it('Finalizar compra com produto no carrinho', () => {
-        overviewPage.verificarProduto()
-        overviewPage.verificarItemTotal()
-        overviewPage.verificarCalcular()
-        overviewPage.overviewFinish()
-        overviewPage.message()
-        overviewPage.backHome()
+    it.only('Finalizar compra com produto no carrinho', () => {
+        cy.get('.inventory_item_name').should('be.visible')
+        cy.get('@guardado').then((textoGuardado) => {
+        cy.get('.summary_subtotal_label')
+            .should('be.visible')
+            .should('contain', textoGuardado);
+        });
+        cy.get('@guardado').then(textoGuardado => {
+            const valorItem = parseFloat(textoGuardado.replace(/[^0-9.,]/g, '').replace(',', '.')) || 0;
+
+            cy.get('.summary_tax_label')
+                .should('be.visible')
+                .invoke('text')
+                .then(textoTaxa => {
+                    const valorTaxa = parseFloat(textoTaxa.replace(/[^0-9.,]/g, '').replace(',', '.')) || 0;
+
+                    const soma = valorItem + valorTaxa;
+
+                    cy.get('.summary_total_label')
+                        .should('be.visible')
+                        .invoke('text')
+                        .then(textoTotal => {
+                            const valorTotal = parseFloat(textoTotal.replace(/[^0-9.,]/g, '').replace(',', '.')) || 0;
+
+                            expect(valorTotal).to.be.closeTo(soma, 0.01);
+                        });
+                });
+        });
+        cy.get('#finish').should('be.visible').click()
+        cy.get('#back-to-products').should('be.visible').click()
     })
 })
