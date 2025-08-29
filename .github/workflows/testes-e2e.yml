@@ -10,7 +10,7 @@ jobs:
         run: |
           echo '{
             "user_name": "${{ secrets.CYPRESS_user_name }}",
-            "user_locked": "${{ secrets.CYPRESS_user_locker }}",
+            "user_locked": "${{ secrets.CYPRESS_user_locked }}",
             "user_problem": "${{ secrets.CYPRESS_user_problem}}",
             "user_performance": "${{ secrets.CYPRESS_user_performance}}",
             "user_error": "${{ secrets.CYPRESS_user_error}}",
