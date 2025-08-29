@@ -1,79 +1,70 @@
 /// <reference types="cypress" />
 
-import LoginPage from '../pages/Login_page'
-
-const loginPage = new LoginPage
-
-const user = Cypress.env('user_name')
-const password = Cypress.env('user_password')
-
-function fazLogin(user, password) {
-  loginPage.fillLogin(user, password)
-  loginPage.clickButton()
-}
-
 describe('Teste de Login', () => {
-  
-  beforeEach(() => {
-    cy.visit(Cypress.config('baseUrl'))
-  })
-  
-  it('Login com sucesso', () => {
-    const title = 'Swag Labs'
-    fazLogin(user, password)
-    loginPage.validar(title)
 
+  beforeEach(() => {
+    cy.sessionLogin()
+  })
+
+  it('Login (standard_user) com sucesso', () => {
+    cy.userLogin(Cypress.env('user_name'))
+  })
+
+  it('Login (locked_out_user) com sucesso', () => {
+    cy.userLogin(Cypress.env('user_locked'))
+  })
+
+  it('Login (problem_user) com sucesso', () => {
+    cy.userLogin(Cypress.env('user_problem'))
+  })
+
+  it('Login (performance_glitch_user) com sucesso', () => {
+    cy.userLogin(Cypress.env('user_performance'))
+  })
+
+  it('Login (error_user) com sucesso', () => {
+    cy.userLogin(Cypress.env('user_error'))
   })
 
   it('Login com usuario invalido', () => {
-    const mensagens = "Username and password do not match any user in this service"
+    const mensagens = "Epic sadface: Username and password do not match any user in this service"
 
-    fazLogin("usuario_invalido", password)
-    loginPage.validar(mensagens)
+    cy.userLogin('usuario_invalido')
+    cy.get('[data-test="error"]').should('have.text', mensagens)
 
   })
 
   it('Login com senha incorreta', () => {
-    const mensagens = "Username and password do not match any user in this service"
-    
-    fazLogin(user, "password_fail")
-    loginPage.validar(mensagens)
+    const mensagens = "Epic sadface: Username and password do not match any user in this service"
+
+    cy.get('#password').clear().type('password_fail')
+    cy.userLogin(Cypress.env('user_name'))
+    cy.get('[data-test="error"]').should('have.text', mensagens)
 
   })
 
   it('Login com campos em branco', () => {
     const mensagens = "Epic sadface: Username is required"
 
-    loginPage.clickButton()
-    loginPage.validar(mensagens)
-
+    cy.get('#password').clear()
+    cy.get('#login-button').click()
+    cy.get('[data-test="error"]').should('have.text', mensagens)
   })
 
   it('Login a senha em branco', () => {
     const mensagens = "Epic sadface: Password is required"
 
-    loginPage.username(user)
-    loginPage.clickButton()
-    loginPage.validar(mensagens)
-
+    cy.get('#password').clear()
+    cy.userLogin(Cypress.env('user_name'))
+    cy.get('[data-test="error"]').should('have.text', mensagens)
   })
 
   it('Login o usuario em branco', () => {
     const mensagens = "Epic sadface: Username is required"
 
-    loginPage.password(password)
-    loginPage.clickButton()
-    loginPage.validar(mensagens)
+    cy.get('#login-button').click()
+    cy.get('[data-test="error"]').should('have.text', mensagens)
 
   })
 
-  it('Inserir quantidade ilimitada de caracteres no campo username', () => {
-    const mensagens = "Username and password do not match any user in this service"
-
-    loginPage.aleatorio(150)
-    loginPage.password(password)
-    loginPage.clickButton()
-    loginPage.validar(mensagens)
-
-  })
 })
