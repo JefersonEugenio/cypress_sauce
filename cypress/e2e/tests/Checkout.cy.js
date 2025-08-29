@@ -1,62 +1,58 @@
 /// <reference types="cypress" />
 
-import LoginPage from "../pages/Login_page";
-import ProdutoPage from "../pages/Produto_page";
-import CarrinhoPage from "../pages/Carrinho_page";
-import CheckoutPage from "../pages/Checkout_page";
-
-const user = Cypress.env('user_name')
-const password = Cypress.env('user_password')
-
-const loginPage = new LoginPage
-const produtoPage = new ProdutoPage
-const carrinhoPage = new CarrinhoPage
-const checkoutPage = new CheckoutPage
+import { faker } from '@faker-js/faker'
 
 describe('A pagina do overview', () => {
-    
+
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'))
-        loginPage.fillLogin(user, password)
-        loginPage.clickButton()
-        produtoPage.titleProduto('Products')
-        produtoPage.validarProdutos()
-        produtoPage.adicionarProduto('Sauce Labs Backpack')
-        produtoPage.verificarIconeCarrinhoValor(1)
-        produtoPage.acessarCarrinho()
-        carrinhoPage.checkout()
+        cy.sessionLogin()
+        cy.userLogin(Cypress.env('user_name'))
+        cy.adicionarProduto('Sauce Labs Backpack')
+        cy.carrinhoProduto()
     })
 
     it('Preenchimento completo e valido dos campos obrigatorios', () => {
-        checkoutPage.preencherDados()
-        checkoutPage.continue()
+        cy.get('#first-name').should('be.visible')
+            .type(faker.person.firstName())
+        cy.get('#last-name').should('be.visible')
+            .type(faker.person.lastName())
+        cy.get('#postal-code').should('be.visible')
+            .type(faker.location.zipCode('#######'))
+        cy.get('#continue').should('be.visible').click()
     })
-    
+
     it('Campos obrigatorio em branco', () => {
-        checkoutPage.continue()
-        checkoutPage.error('Error: First Name is required')
+        cy.get('#continue').should('be.visible').click()
+        cy.get('[data-test="error"]').should('be.visible').contains('Error: First Name is required')
     })
-    
+
     it('Campo "First Name" em branco', () => {
-        checkoutPage.preencherLastName()
-        checkoutPage.preencherPostal()
-        checkoutPage.continue()
-        checkoutPage.error('Error: First Name is required')
+        cy.get('#last-name').should('be.visible')
+            .type(faker.person.lastName())
+        cy.get('#postal-code').should('be.visible')
+            .type(faker.location.zipCode('#######'))
+        cy.get('#continue').should('be.visible').click()
+        cy.get('[data-test="error"]').should('be.visible').contains('Error: First Name is required')
     })
 
     it('Campo "Last Name" em branco', () => {
-        checkoutPage.preencherFirstName()
-        checkoutPage.preencherPostal()
-        checkoutPage.continue()
-        checkoutPage.error('Error: Last Name is required')
+        cy.get('#first-name').should('be.visible')
+            .type(faker.person.firstName())
+        cy.get('#postal-code').should('be.visible')
+            .type(faker.location.zipCode('#######'))
+        cy.get('#continue').should('be.visible').click()
+        cy.get('[data-test="error"]').should('be.visible').contains('Error: Last Name is required')
     })
     it('Campo "Zip/Postal" em branco', () => {
-        checkoutPage.preencherFirstName()
-        checkoutPage.preencherLastName()
-        checkoutPage.continue()
-        checkoutPage.error('Error: Postal Code is required')
+        cy.get('#first-name').should('be.visible')
+            .type(faker.person.firstName())
+        cy.get('#last-name').should('be.visible')
+            .type(faker.person.lastName())
+        cy.get('#continue').should('be.visible').click()
+        cy.get('[data-test="error"]').should('be.visible')
+            .contains('Error: Postal Code is required')
     })
     it('Clicar em "Cancel" para retornar ao carrinho', () => {
-        checkoutPage.cancel()
+        cy.get('#cancel').should('be.visible').click()
     })
 })
