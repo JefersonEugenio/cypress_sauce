@@ -1,38 +1,22 @@
 /// <reference types="cypress" />
 
-import LoginPage from "../pages/Login_page";
-import ProdutoPage from "../pages/Produto_page";
-import CarrinhoPage from "../pages/Carrinho_page";
-
-const user = Cypress.env('user_name')
-const password = Cypress.env('user_password')
-
-const loginPage = new LoginPage
-const produtoPage = new ProdutoPage
-const carrinhoPage = new CarrinhoPage
-
 describe('A pagina do carrinho', () => {
 
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'))
-        loginPage.fillLogin(user, password)
-        loginPage.clickButton()
-        produtoPage.titleProduto('Products')
-        produtoPage.validarProdutos()
-        produtoPage.adicionarProduto('Sauce Labs Backpack')
-        produtoPage.verificarIconeCarrinhoValor(1)
-        produtoPage.acessarCarrinho()
+        cy.sessionLogin()
+        cy.userLogin(Cypress.env('user_name'))
+        cy.adicionarProduto('Sauce Labs Backpack')
     })
 
     it('Remover produto do carrinho', () => {
-        carrinhoPage.removeBotao('Remove')
+        cy.contains('.btn', 'Remove').should('be.visible').click()
     })
 
     it('Continuar comprando pelo carrinho', () => {
-        carrinhoPage.continueShopping()
+        cy.contains('.btn', 'Continue').should('be.visible').click()
     })
-
+    
     it('Ir para checkout pelo carrinho', () => {
-        carrinhoPage.checkout()
+        cy.contains('.btn', 'Checkout').should('be.visible').click()
     })
 })
