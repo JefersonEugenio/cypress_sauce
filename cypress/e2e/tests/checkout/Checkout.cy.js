@@ -12,12 +12,15 @@ describe('A pagina do overview', () => {
     })
 
     it('Preenchimento completo e valido dos campos obrigatorios', () => {
-        cy.get('#first-name').should('be.visible')
-            .type(faker.person.firstName())
-        cy.get('#last-name').should('be.visible')
-            .type(faker.person.lastName())
-        cy.get('#postal-code').should('be.visible')
-            .type(faker.location.zipCode('#######'))
+        cy.fixture('checkout').then((test) => {
+            cy.get('#first-name').type(test.FirstName)
+        })
+        cy.fixture('checkout').then((test) => {
+            cy.get('#last-name').type(test.LastName)
+        })
+        cy.fixture('checkout').then((test) => {
+            cy.get('#postal-code').type(test.PostalCode)
+        })
         cy.get('#continue').should('be.visible').click()
     })
 
